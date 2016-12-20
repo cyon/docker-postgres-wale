@@ -1,6 +1,6 @@
-FROM postgres:9.4.9
+FROM postgres:9.5
 
-MAINTAINER Luke Smith
+MAINTAINER Dominic Luechinger
 
 RUN apt-get update && apt-get install -y python3-pip python3.4 lzop pv daemontools && \
    pip3 install wal-e[aws] && \
@@ -10,7 +10,5 @@ RUN apt-get update && apt-get install -y python3-pip python3.4 lzop pv daemontoo
 COPY entrypoint.sh /
 ENTRYPOINT ["/entrypoint.sh"]
 
-COPY setup-wale.sh fix-acl.sh /docker-entrypoint-initdb.d/
+COPY setup-wale.sh /docker-entrypoint-initdb.d/
 COPY backup /
-
-CMD ["postgres"]
